@@ -32,7 +32,7 @@ def home():
     return "This is a prototype API for returning maps. If you need a map, go to /map | If you need a link, go to /link"
 
 @app.route('/map', methods=['GET', 'POST'])
-@cross_origin(origin='localhost',headers=['Content- Type','Authorization'])
+@cross_origin()
 def map():
     # get the address variable filled in
     if request.method == "POST":
@@ -76,7 +76,7 @@ def map():
         return "If you are seeing this, your address was likely invalid."
 
 @app.route('/link', methods=['GET', 'POST'])
-@cross_origin(origin='localhost',headers=['Content- Type','Authorization'])
+@cross_origin()
 def link():
     # get the address variable filled in
     if request.method == "POST":
