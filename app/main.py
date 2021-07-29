@@ -3,6 +3,7 @@ from geopy.geocoders import Nominatim
 import folium
 from flask import request, jsonify
 import json
+from flask_cors import CORS
 
 ###
 # This microservice takes an address in Street, City, 2 Letter State Code (GET/POST)
@@ -21,6 +22,7 @@ import json
 
 app = flask.Flask(__name__)
 app.config["DEBUG"] = False
+CORS(app)
 
 @app.route('/', methods=['GET'])
 def home():
