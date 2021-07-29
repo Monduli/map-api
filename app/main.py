@@ -22,7 +22,7 @@ from flask_cors import CORS, cross_origin
 
 app = flask.Flask(__name__)
 app.config["DEBUG"] = False
-cors = CORS(app, resources={r"/map": {"origins": "http://localhost:port"}})
+cors = CORS(app, resources={r"/map": {"origins": "*"}})
 app.config['CORS_HEADERS'] = 'Content-Type'
 
 @app.route('/', methods=['GET'])
