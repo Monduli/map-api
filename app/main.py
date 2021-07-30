@@ -22,8 +22,8 @@ from flask_cors import CORS, cross_origin, logging
 
 app = flask.Flask(__name__)
 app.config["DEBUG"] = False
-CORS(app)
-#app.config['CORS_HEADERS'] = 'Content-Type'
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 #logging.getLogger('flask_cors').level = logging.DEBUG
 
 @app.route('/', methods=['GET'])
@@ -32,7 +32,7 @@ def home():
     return "This is a prototype API for returning maps. If you need a map, go to /map | If you need a link, go to /link"
 
 @app.route('/map', methods=['GET', 'POST'])
-#@cross_origin()
+@cross_origin()
 def map():
     # get the address variable filled in
     if request.method == "POST":
@@ -154,6 +154,16 @@ def both():
         #img = Image.open(io.BytesIO(img_data))
 
         return json.dumps(to_dump)
+
+def add_cors_headers(response):
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    if request.method == 'OPTIONS':
+        response.headers['Access-Control-Allow-Methods'] = 'DELETE, GET, POST, PUT'
+        headers = request.headers.get('Access-Control-Request-Headers')
+        if headers:
+            response.headers['Access-Control-Allow-Headers'] = headers
+    return response
+app.after_request(add_cors_headers)
 
 if __name__ == "main":
     app.run()
