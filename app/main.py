@@ -5,13 +5,9 @@ from flask import request, jsonify
 import json
 
 ###
-# This microservice takes an address in Street, City, 2 Letter State Code (GET/POST)
-# and returns both an HTML map to the location and a Google Maps link to their map.
-# The HTML map is provided by Nominatim, an open source map provider.
-# If you're wondering why it doesn't use Google Maps, it's because I didn't want to have to stick
-# an API key in here and then have my teammate swap it out for his own and all that, too much work.
-# Instead, this map functions perfectly fine, and there is a link to Google Maps that can be
-# applied to a button or an overlay to take you to Google Maps.
+# input - address (76 Street Lane, Pittsburgh, PA) or (15217)
+# /map - returns a Nominatum open-source map
+# /link - returns a Google Maps link to the input address
 #
 # Example address:
 # https://127.0.0.1:5000/api?address=750%20Wall%20Street,%20Fairfield,%20CA
@@ -90,7 +86,6 @@ def link():
     # One final check to make sure the data isn't empty
     if data != None:
 
-        # take lat/lon from the pulled information
         latitude = data.latitude
         longitude = data.longitude
         packet = []
